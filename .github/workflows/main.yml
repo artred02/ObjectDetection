@@ -24,7 +24,7 @@ jobs:
       - name: Configurer la version de .NET SDK
         uses: actions/setup-dotnet@v2
         with:
-        dotnet-version: ${{ env.SDK_VERSION }}
+          dotnet-version: ${{ env.SDK_VERSION }}
 
       - name: Configurer la version de .NET SDK
         uses: actions/setup-dotnet@v2
