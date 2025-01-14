@@ -37,7 +37,7 @@ jobs:
 
       - name: Publier le projet ObjectDetection.Console en format exécutable autonome
         run: |
-          dotnet publish ./ObjectDetection.Console/ObjectDetection.Console.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+          dotnet publish ./Clement.Lardemelle.ObjectDetection.Console/Clement.Lardemelle.ObjectDetection.Console.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
 
       - name: Archiver les artefacts (optionnel)
         uses: actions/upload-artifact@v3
