@@ -35,8 +35,9 @@ jobs:
       - name: Exécuter les tests unitaires
         run: dotnet test
 
-      - name: Publier le projet en format exécutable autonome
-        run: dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+      - name: Publier le projet ObjectDetection.Console en format exécutable autonome
+        run: |
+          dotnet publish ./ObjectDetection.Console/ObjectDetection.Console.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
 
       - name: Archiver les artefacts (optionnel)
         uses: actions/upload-artifact@v3
