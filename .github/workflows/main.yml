@@ -15,13 +15,16 @@ jobs:
     steps:
       - name: Vérifier le code source
         uses: actions/checkout@v2
-
-      - name: Extraire la version du SDK depuis global.json
-        id: get_sdk_version
         run: |
-          SDK_VERSION=$(jq -r '.sdk.version' global.json)
+          $globalJson = Get-Content -Raw -Path global.json | ConvertFrom-Json
+          $SDK_VERSION = $globalJson.sdk.version
           echo "SDK version found: $SDK_VERSION"
-          echo "SDK_VERSION=$SDK_VERSION" >> $GITHUB_ENV  # Définir la version dans les variables d'environnement
+          echo "SDK_VERSION=$SDK_VERSION" >> $env:GITHUB_ENV  # Définir la version dans les variables d'environnement
+          
+      - name: Configurer la version de .NET SDK
+        uses: actions/setup-dotnet@v2
+        with:
+        dotnet-version: ${{ env.SDK_VERSION }}
 
       - name: Configurer la version de .NET SDK
         uses: actions/setup-dotnet@v2
