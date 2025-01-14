@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Vérifier le code source
         uses: actions/checkout@v2
+
+      - name: Extraire la version du SDK depuis global.json
+        id: get_sdk_version
         run: |
           $globalJson = Get-Content -Raw -Path global.json | ConvertFrom-Json
           $SDK_VERSION = $globalJson.sdk.version
