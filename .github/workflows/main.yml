@@ -19,7 +19,7 @@ jobs:
           $globalJson = Get-Content -Raw -Path global.json | ConvertFrom-Json
           $SDK_VERSION = $globalJson.sdk.version
           echo "SDK version found: $SDK_VERSION"
-          echo "SDK_VERSION=$SDK_VERSION" >> $env:GITHUB_ENV  # Définir la version dans les variables d'environnement
+          echo "SDK_VERSION=$SDK_VERSION" >> $env:GITHUB_ENV
           
       - name: Configurer la version de .NET SDK
         uses: actions/setup-dotnet@v2
