@@ -18,9 +18,9 @@ jobs:
         run: |
           $globalJson = Get-Content -Raw -Path global.json | ConvertFrom-Json
           $SDK_VERSION = $globalJson.sdk.version
-          echo "SDK version found: $SDK_VERSION"
+          Write-Host "SDK version found: $SDK_VERSION"
           echo "SDK_VERSION=$SDK_VERSION" >> $env:GITHUB_ENV
-          
+
       - name: Configurer la version de .NET SDK
         uses: actions/setup-dotnet@v2
         with:
@@ -36,7 +36,7 @@ jobs:
         run: dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
 
       - name: Archiver les artefacts (optionnel)
-        uses: actions/upload-artifact@v3 
+        uses: actions/upload-artifact@v3
         with:
           name: ObjectDetection
           path: ./bin/Release/net6.0/win-x64/publish/ObjectDetection.exe
