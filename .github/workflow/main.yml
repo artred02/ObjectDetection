@@ -1,0 +1,44 @@
+﻿name: .NET Core CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Vérifier le code source
+        uses: actions/checkout@v2
+        
+      - name: Extraire la version du SDK depuis global.json
+        id: get_sdk_version
+        run: |
+          SDK_VERSION=$(jq -r '.sdk.version' global.json)
+          echo "SDK version found: $SDK_VERSION"
+          echo "SDK_VERSION=$SDK_VERSION" >> $GITHUB_ENV
+          
+      - name: Configurer la version de .NET SDK
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.SDK_VERSION }}
+
+      - name: Restaurer les dépendances
+        run: dotnet restore
+
+      - name: Exécuter les tests unitaires
+        run: dotnet test
+
+      - name: Publier le projet en format exécutable autonome
+        run: dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+
+      - name: Archiver les artefacts (optionnel)
+        uses: actions/upload-artifact@v2
+        with:
+          name: ObjectDetection
+          path: ./bin/Release/net6.0/win-x64/publish/ObjectDetection.exe
