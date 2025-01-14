@@ -39,8 +39,12 @@ jobs:
         run: |
           dotnet publish ./Clement.Lardemelle.ObjectDetection.Console/Clement.Lardemelle.ObjectDetection.Console.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
 
+      - name: Lister les fichiers dans le répertoire de publication
+        run: |
+          dir ./Clement.Lardemelle.ObjectDetection.Console/bin/Release/net8.0/win-x64/publish/
+
       - name: Archiver les artefacts
         uses: actions/upload-artifact@v3
         with:
           name: ObjectDetection
-          path: ./bin/Release/net8.0/win-x64/publish/Clement.Lardemelle.ObjectDetection.Console.exe
+          path: ./Clement.Lardemelle.ObjectDetection.Console/bin/Release/net8.0/win-x64/publish/Clement.Lardemelle.ObjectDetection.Console.exe
